@@ -1,3 +1,6 @@
+%define major 0
+%define devname %mklibname bellesip -d
+
 Name:           belle-sip
 Version:        1.3.0
 Release:        1
@@ -13,22 +16,24 @@ Buildrequires: antlr3-C-devel
 BuildRequires: polarssl-devel
 BuildRequires: java
 
+%libpackage bellesip %major
+
 %description
 Belle-sip is an object oriented c written SIP stack used by Linphone.
 
-%package devel
+%package -n %devname
 Summary:       Development libraries for belle-sip
-Group:         Development/Libraries
+Group:         System/Libraries
 Requires:      %{name} = %{version}-%{release}
 
-%description    devel
+%description  -n %devname
 Libraries and headers required to develop software with belle-sip
 
 %prep
 %setup -q
 
 %build
-%configure --disable-static --docdir=%{_docdir} 
+%configure --disable-static --docdir=%{_docdir} CFLAGS=-Wno-error
 %make
 
 
@@ -44,11 +49,7 @@ rm -f %{buildroot}%{_libdir}/libbellesip.la
 %postun -p /sbin/ldconfig
 
 
-%files 
-%doc AUTHORS ChangeLog COPYING NEWS README
-%{_libdir}/*.so.*
-
-%files devel
+%files -n %devname
 %{_includedir}/belle-sip
 %{_libdir}/libbellesip.so
 %{_libdir}/pkgconfig/belle-sip.pc
