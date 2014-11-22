@@ -1,11 +1,11 @@
 %define major 0
 %define devname %mklibname bellesip -d
 %define libname %mklibname bellesip %major
-%define __noautoreq 'libantlr3c\\.so\\.1(.*)|devel\\(libantlr3c(.*)|\\.so'
+%define __noautoreq '^libantlr3c\\.so.*$|^devel\\(libantlr3c(.*)$'
 
 Name:           belle-sip
 Version:        1.3.0
-Release:        2
+Release:        3
 Summary:        Linphone sip stack
 
 Group:          Communications
