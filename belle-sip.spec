@@ -35,6 +35,7 @@ Summary:       Development libraries for belle-sip
 Group:         System/Libraries
 Requires:      %{libname} = %{EVRD}
 Requires:	antlr3-C-devel
+Requires:	polarssl-devel
 
 %description  -n %devname
 Libraries and headers required to develop software with belle-sip
