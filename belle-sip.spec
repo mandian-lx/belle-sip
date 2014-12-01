@@ -5,7 +5,7 @@
 
 Name:           belle-sip
 Version:        1.3.0
-Release:        3
+Release:        4
 Summary:        Linphone sip stack
 
 Group:          Communications
@@ -14,7 +14,7 @@ URL:            http://www.belle-sip.org
 Source0: 	%{name}-%{version}.tar.xz
 
 BuildRequires: antlr3
-Buildrequires: antlr3-C-devel
+BuildRequires: antlr3-C-devel
 BuildRequires: polarssl-devel
 BuildRequires: java
 
@@ -25,6 +25,7 @@ Belle-sip is an object oriented c written SIP stack used by Linphone.
 Summary: The belle-sip library, a part of belle-sip
 Group: System/Libraries
 Requires: antlr3-C
+Requires: polarssl
 
 %description -n %libname
 The belle-sip library, a part of belle-sip.
