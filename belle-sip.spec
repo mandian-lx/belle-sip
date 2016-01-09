@@ -4,14 +4,14 @@
 %define __noautoreq '^libantlr3c\\.so.*$|^devel\\(libantlr3c(.*)$'
 
 Name:           belle-sip
-Version:        1.3.0
-Release:        6
+Version:        1.4.2
+Release:        1
 Summary:        Linphone sip stack
 
 Group:          Communications
 License:        GPL
-URL:            http://www.belle-sip.org
-Source0: 	%{name}-%{version}.tar.xz
+URL:            http://www.linphone.org
+Source0: 	https://www.linphone.org/snapshots/sources/%{name}/%{name}-%{version}.tar.gz
 
 BuildRequires: antlr3
 BuildRequires: antlr3-C-devel
