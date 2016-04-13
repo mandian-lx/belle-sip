@@ -17,6 +17,7 @@ Source1:	antlr-3.4-complete.jar
 
 BuildRequires:	antlr3c-devel
 BuildRequires:	polarssl-devel
+BuildRequires:	pkgconfig(bctoolbox)
 BuildRequires:	java
 
 %description
