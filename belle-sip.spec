@@ -15,7 +15,7 @@ Summary:        SIP stack
 Group:          Communications
 License:        GPL
 URL:            https://www.linphone.org/technical-corner/%{name}.html
-#Source0:	https://github.com/BelledonneCommunications/%{name}/archive/%{version}.tar.gz
+#Source0:	https://github.com/BelledonneCommunications/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source0:        https://www.linphone.org/releases/sources/belle-sip/%{name}-%{version}.tar.gz
 Source1:        https://www.linphone.org/releases/sources/linphone/belle-sip/%{name}-%{version}.tar.gz.sig
 # https://github.com/antlr/website-antlr3/blob/gh-pages/download/antlr-3.4-complete.jar?raw=true
