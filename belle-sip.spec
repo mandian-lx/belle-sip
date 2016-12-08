@@ -25,8 +25,9 @@ Patch1:         %{name}-1.5.0-bctoolbox.patch
 Patch2:         %{name}-1.5.0-pkgconfig.patch
 Patch3:         %{name}-1.5.0-include.patch
 
+BuildRequires:  cmake
 BuildRequires:  java
-#BuildRequires:  antlr3-tool    < 3.5
+BuildRequires:  antlr3-tool    < 3.5
 #BuildRequires:  antlr3-C-devel < 3.5
 BuildRequires:	antlr3c-devel  < 3.5
 BuildRequires:  mbedtls-devel
