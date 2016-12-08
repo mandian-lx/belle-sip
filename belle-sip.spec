@@ -26,6 +26,7 @@ Patch2:         %{name}-1.5.0-pkgconfig.patch
 Patch3:         %{name}-1.5.0-include.patch
 
 BuildRequires:  cmake
+BuildRequires:	cmake(BcToolbox)
 BuildRequires:  java
 BuildRequires:  antlr3-tool    < 3.5
 #BuildRequires:  antlr3-C-devel < 3.5
