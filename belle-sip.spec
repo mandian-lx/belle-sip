@@ -6,7 +6,7 @@
 %define libname  %mklibname %{sname} %{major}
 %define devname  %mklibname %{sname} -d
 
-#define __noautoreq '^libantlr3c\\.so.*$|^devel\\(libantlr3c(.*)$'
+%define __noautoreq '^libantlr3c\\.so.*$|^devel\\(libantlr3c(.*)$'
 
 Name:           belle-sip
 Version:        1.5.0
@@ -15,11 +15,11 @@ Summary:        SIP stack
 Group:          Communications
 License:        GPL
 URL:            https://www.linphone.org/technical-corner/%{name}.html
-
 #Source0:	https://github.com/BelledonneCommunications/%{name}/archive/%{version}.tar.gz
 Source0:        https://www.linphone.org/releases/sources/belle-sip/%{name}-%{version}.tar.gz
 Source1:        https://www.linphone.org/releases/sources/linphone/belle-sip/%{name}-%{version}.tar.gz.sig
-Source2:	antlr-3.4-complete.jar
+# https://github.com/antlr/website-antlr3/blob/gh-pages/download/antlr-3.4-complete.jar?raw=true
+#Source2:	antlr-3.4-complete.jar
 Patch0:         %{name}-1.5.0-werror.patch
 Patch1:         %{name}-1.5.0-bctoolbox.patch
 Patch2:         %{name}-1.5.0-pkgconfig.patch
@@ -83,7 +83,7 @@ Libraries and headers required to develop software with belle-sip.
 %patch3 -p1 -b .orig
 
 # Use antlr3.4 from binary
-cp %{SOURCE2} antlr.jar
+#cp %{SOURCE2} antlr.jar
 
 %build
 %cmake \
