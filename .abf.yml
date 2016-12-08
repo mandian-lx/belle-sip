@@ -1,3 +1,7 @@
-sources:
+removed_sources:
   belle-sip-1.3.0.tar.xz: 66492c78796809c10963037827c040d848cdc9fb
   antlr-3.4-complete.jar: 5cab59d859caa6598e28131d30dd2e89806db57f
+sources:
+  belle-sip-1.5.0.tar.gz:     6f83e2ea204861a3eef31b9185ff8f7f405f48cc
+  belle-sip-1.5.0.tar.gz.sig: 584c99b7eca08c643f6b521e6f80a79b41987472
+

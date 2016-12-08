@@ -1,0 +1,30 @@
+--- belle-sip-1.5.0/src/transports/tls_channel.c.orig
++++ belle-sip-1.5.0/src/transports/tls_channel.c
+@@ -814,7 +814,7 @@
+ 	bctbx_ssl_config_set_rng(obj->sslcfg, random_generator, NULL);
+ 	bctbx_ssl_set_io_callbacks(obj->sslctx, obj, tls_callback_write, tls_callback_read);
+ 	if (crypto_config->root_ca && belle_sip_tls_channel_load_root_ca(obj,crypto_config->root_ca)==0){
+-		bctbx_ssl_config_set_ca_chain(obj->sslcfg, obj->root_ca, super->base.peer_cname ? super->base.peer_cname : super->base.peer_name );
++		bctbx_ssl_config_set_ca_chain(obj->sslcfg, obj->root_ca);
+ 	}
+ 	bctbx_ssl_config_set_callback_verify(obj->sslcfg, belle_sip_ssl_verify, crypto_config);
+ 	bctbx_ssl_config_set_callback_cli_cert(obj->sslcfg, belle_sip_client_certificate_request_callback, obj);
+--- belle-sip-1.5.0/include/belle-sip/list.h.orig
++++ belle-sip-1.5.0/include/belle-sip/list.h
+@@ -35,13 +35,13 @@
+ #define belle_sip_list_size bctbx_list_size
+ #define belle_sip_list_for_each bctbx_list_for_each
+ #define belle_sip_list_for_each2 bctbx_list_for_each2
+-#define belle_sip_list_remove_link bctbx_list_remove_link
+-#define belle_sip_list_delete_link bctbx_list_delete_link
++#define belle_sip_list_remove_link bctbx_list_unlink
++#define belle_sip_list_delete_link bctbx_list_erase_link
+ #define belle_sip_list_find bctbx_list_find
+ #define belle_sip_list_free bctbx_list_free
+ #define belle_sip_list_free_with_data bctbx_list_free_with_data
+ 
+-#define  belle_sip_compare_func bctbx_compare_func
++#define belle_sip_compare_func bctbx_compare_func
+ #define belle_sip_list_find_custom bctbx_list_find_custom
+ #define belle_sip_list_nth_data bctbx_list_nth_data
+ #define belle_sip_list_position bctbx_list_position

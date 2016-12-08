@@ -1,69 +1,99 @@
+%define oname BelleSIP
+%define lname %(echo %oname | tr [:upper:] [:lower:])
+
 %define major 0
-%define devname %mklibname bellesip -d
-%define libname %mklibname bellesip %major
-%define __noautoreq '^libantlr3c\\.so.*$|^devel\\(libantlr3c(.*)$'
+%define sname %(tr -d \- <<<%{name})
+%define libname  %mklibname %{sname} %{major}
+%define devname  %mklibname %{sname} -d
+
+#define __noautoreq '^libantlr3c\\.so.*$|^devel\\(libantlr3c(.*)$'
 
 Name:           belle-sip
-Version:        1.4.2
-Release:        2
-Summary:        Linphone sip stack
-
+Version:        1.5.0
+Release:        1
+Summary:        SIP stack
 Group:          Communications
 License:        GPL
-URL:            http://www.linphone.org
-Source0: 	https://www.linphone.org/snapshots/sources/%{name}/%{name}-%{version}.tar.gz
-# https://github.com/antlr/website-antlr3/blob/gh-pages/download/antlr-3.4-complete.jar?raw=true
-Source1:	antlr-3.4-complete.jar
+URL:            https://www.linphone.org/technical-corner/%{name}.html
 
-BuildRequires:	antlr3c-devel
-BuildRequires:	polarssl-devel
-BuildRequires:	pkgconfig(bctoolbox)
-BuildRequires:	java
+#Source0:	https://github.com/BelledonneCommunications/%{name}/archive/%{version}.tar.gz
+Source0:        https://www.linphone.org/releases/sources/belle-sip/%{name}-%{version}.tar.gz
+Source1:        https://www.linphone.org/releases/sources/linphone/belle-sip/%{name}-%{version}.tar.gz.sig
+Source2:	antlr-3.4-complete.jar
+Patch0:         %{name}-1.5.0-werror.patch
+Patch1:         %{name}-1.5.0-bctoolbox.patch
+Patch2:         %{name}-1.5.0-pkgconfig.patch
+Patch3:         %{name}-1.5.0-include.patch
+
+BuildRequires:  java
+#BuildRequires:  antlr3-tool    < 3.5
+#BuildRequires:  antlr3-C-devel < 3.5
+BuildRequires:	antlr3c-devel  < 3.5
+BuildRequires:  mbedtls-devel
+BuildRequires:  pkgconfig(bcunit)
 
 %description
-Belle-sip is an object oriented c written SIP stack used by Linphone.
+Belle-sip is a C object oriented SIP Stack.
 
-%package -n %libname
-Summary: The belle-sip library, a part of belle-sip
-Group: System/Libraries
-Requires: antlr3-C
-Requires: polarssl
+#--------------------------------------------------------------------
 
-%description -n %libname
+%package -n %{libname}
+Summary:   The belle-sip library, a part of belle-sip
+Group:     System/Libraries
+#Requires:  antlr3-C < 3.5
+#Requires:  mbedtls < 2
+
+%description -n %{libname}
 The belle-sip library, a part of belle-sip.
 
-%package -n %devname
-Summary:       Development libraries for belle-sip
-Group:         System/Libraries
-Requires:      %{libname} = %{EVRD}
-Requires:	antlr3-C-devel
-Requires:	polarssl-devel
+%files -n %{libname}
+%{_libdir}/lib%{lname}.so.%{major}*
+%doc COPYING
 
-%description  -n %devname
-Libraries and headers required to develop software with belle-sip
+#--------------------------------------------------------------------
+
+%package -n %{devname}
+Summary:   Development libraries for belle-sip
+Group:     System/Libraries
+Requires:  %{libname} = %{EVRD}
+#Requires:  antlr3-C-devel < 3.5
+#Requires:  mbedtls-devel < 2
+
+%description  -n %{devname}
+Libraries and headers required to develop software with belle-sip.
+
+%files -n %{devname}
+%{_includedir}/%{name}
+%{_libdir}/lib%{lname}.so
+%{_libdir}/pkgconfig/%{name}.pc
+%{_datadir}/%{oname}/cmake/
+%doc README
+%doc NEWS
+%doc AUTHORS
+#doc ChangeLog
+%doc COPYING
+
+#--------------------------------------------------------------------
 
 %prep
-%setup -q
-cp %{SOURCE1} antlr.jar
+%setup -q 
+%patch0 -p1 -b .orig
+%patch1 -p1 -b .orig
+%patch2 -p1 -b .orig
+%patch3 -p1 -b .orig
 
-sed -i -e "s#antlr_java_prefixes=.*#antlr_java_prefixes=$PWD#" -e "s|-Werror||g" configure{,.ac}
+# Use antlr3.4 from binary
+cp %{SOURCE2} antlr.jar
 
 %build
-%configure --disable-static --docdir=%{_docdir} --disable-tests --disable-static --enable-tls
+%cmake \
+	-DCMAKE_BUILD_TYPE:STRING=Debug \
+	-DENABLE_SHARED:BOOL=ON \
+	-DENABLE_STATIC:BOOL=OFF \
+	-DENABLE_STRICT:BOOL=OFF \
+	-DENABLE_TESTS:BOOL=OFF
 %make
 
-
 %install
-%makeinstall_std
+%makeinstall_std -C build
 
-# remove static libraries
-rm -f %{buildroot}%{_libdir}/libbellesip.a
-rm -f %{buildroot}%{_libdir}/libbellesip.la
-
-%files -n %devname
-%{_includedir}/belle-sip
-%{_libdir}/libbellesip.so
-%{_libdir}/pkgconfig/belle-sip.pc
-
-%files -n %libname
-%{_libdir}/libbellesip.so.%{major}*

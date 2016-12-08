@@ -1,0 +1,10 @@
+--- belle-sip-1.5.0/include/CMakeLists.txt.orig
++++ belle-sip-1.5.0/include/CMakeLists.txt
+@@ -48,7 +48,6 @@
+ 	transaction.h
+ 	types.h
+ 	utils.h
+-	wakelock.h
+ )
+ 
+ set(BELLE_SIP_HEADER_FILES )
