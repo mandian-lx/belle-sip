@@ -29,8 +29,8 @@ BuildRequires:  cmake
 BuildRequires:	cmake(BcToolbox)
 BuildRequires:  java
 BuildRequires:  antlr3-tool    < 3.5
-#BuildRequires:  antlr3-C-devel < 3.5
-BuildRequires:	antlr3c-devel  < 3.5
+BuildRequires:  antlr3-C-devel < 3.5
+#BuildRequires:	antlr3c-devel  < 3.5
 BuildRequires:  mbedtls-devel
 BuildRequires:  pkgconfig(bcunit)
 
