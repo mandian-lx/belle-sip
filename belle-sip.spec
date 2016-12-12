@@ -42,7 +42,7 @@ Belle-sip is a C object oriented SIP Stack.
 %package -n %{libname}
 Summary:   The belle-sip library, a part of belle-sip
 Group:     System/Libraries
-#Requires:  antlr3-C < 3.5
+Requires:  antlr3-C < 3.5
 #Requires:  mbedtls < 2
 
 %description -n %{libname}
